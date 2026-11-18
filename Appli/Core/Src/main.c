@@ -36,8 +36,8 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-#define LCD_WIDTH       1024U
-#define LCD_HEIGHT      600U
+#define LCD_WIDTH       800U
+#define LCD_HEIGHT      480U
 #define LCD_FB_ADDR     ((uintptr_t)__lcd_framebuffer_start__)
 #define RGB565_BLUE     0x001FU
 #define RGB565_GREEN    0x07E0U
@@ -512,20 +512,16 @@ static void APP_RunColorCycleTest(void)
 
 static void LCD_FillColor(uint16_t color)
 {
-  HAL_GPIO_WritePin(TFT_NRST_GPIO_Port, TFT_NRST_Pin, GPIO_PIN_RESET);
-  HAL_Delay(50);
-  HAL_GPIO_WritePin(TFT_NRST_GPIO_Port, TFT_NRST_Pin, GPIO_PIN_SET);
-  HAL_GPIO_WritePin(TFT_EN_GPIO_Port, TFT_EN_Pin, GPIO_PIN_RESET);
-  HAL_Delay(900);
-  HAL_GPIO_WritePin(TFT_EN_GPIO_Port, TFT_EN_Pin, GPIO_PIN_SET);
-  HAL_GPIO_WritePin(TFT_SETB_GPIO_Port, TFT_SETB_Pin, GPIO_PIN_RESET);
-  HAL_GPIO_WritePin(TFT_LR_GPIO_Port, TFT_LR_Pin, GPIO_PIN_SET);
-  HAL_Delay(200);
-  HAL_GPIO_WritePin(BL_EN_GPIO_Port, BL_EN_Pin, GPIO_PIN_SET);
+  /* The panel requires DISP high at least 10 ms after system power is stable. */
   HAL_Delay(10);
+  HAL_GPIO_WritePin(TFT_EN_GPIO_Port, TFT_EN_Pin, GPIO_PIN_SET);
+
+  /* Start display data before enabling the backlight, then observe the 250 ms delay. */
+  APP_FillFrameBuffer(color);
+  HAL_Delay(250);
+  HAL_GPIO_WritePin(BL_EN_GPIO_Port, BL_EN_Pin, GPIO_PIN_SET);
   Set_Brightness_Duty(100);
   HAL_TIM_PWM_Start(&htim13, TIM_CHANNEL_1);
-  APP_FillFrameBuffer(color);
 }
 
 /* USER CODE END 0 */
@@ -598,7 +594,7 @@ int main(void)
     Error_Handler();
   }
   LCD_FillColor(RGB565_WHITE);
-  // APP_RunColorCycleTest();
+//   APP_RunColorCycleTest();
   /* USER CODE END 2 */
 
   /* Init scheduler */
@@ -948,14 +944,14 @@ static void MX_LTDC_Init(void)
   hltdc.Init.VSPolarity = LTDC_VSPOLARITY_AL;
   hltdc.Init.DEPolarity = LTDC_DEPOLARITY_AL;
   hltdc.Init.PCPolarity = LTDC_PCPOLARITY_IPC;
-  hltdc.Init.HorizontalSync = 23;
-  hltdc.Init.VerticalSync = 1;
-  hltdc.Init.AccumulatedHBP = 183;
-  hltdc.Init.AccumulatedVBP = 24;
-  hltdc.Init.AccumulatedActiveW = 1207;
-  hltdc.Init.AccumulatedActiveH = 624;
-  hltdc.Init.TotalWidth = 1367;
-  hltdc.Init.TotalHeigh = 636;
+  hltdc.Init.HorizontalSync = 3;
+  hltdc.Init.VerticalSync = 3;
+  hltdc.Init.AccumulatedHBP = 11;
+  hltdc.Init.AccumulatedVBP = 11;
+  hltdc.Init.AccumulatedActiveW = 811;
+  hltdc.Init.AccumulatedActiveH = 491;
+  hltdc.Init.TotalWidth = 819;
+  hltdc.Init.TotalHeigh = 499;
   hltdc.Init.Backcolor.Blue = 0;
   hltdc.Init.Backcolor.Green = 0;
   hltdc.Init.Backcolor.Red = 0;
@@ -964,17 +960,17 @@ static void MX_LTDC_Init(void)
     Error_Handler();
   }
   pLayerCfg.WindowX0 = 0;
-  pLayerCfg.WindowX1 = 1024;
+  pLayerCfg.WindowX1 = 800;
   pLayerCfg.WindowY0 = 0;
-  pLayerCfg.WindowY1 = 600;
+  pLayerCfg.WindowY1 = 480;
   pLayerCfg.PixelFormat = LTDC_PIXEL_FORMAT_RGB565;
   pLayerCfg.Alpha = 255;
   pLayerCfg.Alpha0 = 0;
   pLayerCfg.BlendingFactor1 = LTDC_BLENDING_FACTOR1_CA;
   pLayerCfg.BlendingFactor2 = LTDC_BLENDING_FACTOR2_CA;
   pLayerCfg.FBStartAdress = 0x90000000;
-  pLayerCfg.ImageWidth = 1024;
-  pLayerCfg.ImageHeight = 600;
+  pLayerCfg.ImageWidth = 800;
+  pLayerCfg.ImageHeight = 480;
   pLayerCfg.Backcolor.Blue = 0;
   pLayerCfg.Backcolor.Green = 0;
   pLayerCfg.Backcolor.Red = 0;

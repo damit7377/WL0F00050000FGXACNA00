@@ -7,8 +7,8 @@
           {
             "Type": "Box",
             "Name": "box1",
-            "Width": 1024,
-            "Height": 600,
+            "Width": 800,
+            "Height": 480,
             "Color": {
               "Green": 255,
               "Blue": 13
@@ -17,8 +17,8 @@
           {
             "Type": "Image",
             "Name": "image1",
-            "X": 480,
-            "Y": 236,
+            "X": 368,
+            "Y": 176,
             "Width": 64,
             "Height": 128,
             "RelativeFilename": "button_01_00.png",
@@ -45,14 +45,14 @@
           {
             "Type": "Image",
             "Name": "image1",
-            "Width": 1024,
-            "Height": 600,
+            "Width": 800,
+            "Height": 480,
             "RelativeFilename": "HEPA_3.png"
           },
           {
             "Type": "TextArea",
             "Name": "textArea1",
-            "X": 882,
+            "X": 658,
             "Width": 142,
             "Height": 41,
             "TextId": "__SingleUse_KRNP",
@@ -111,8 +111,8 @@
     "CustomContainerDefinitions": [],
     "Name": "H7R_70D5",
     "Resolution": {
-      "Width": 1024,
-      "Height": 600
+      "Width": 800,
+      "Height": 480
     },
     "SelectedColorDepth": 16,
     "StartupScreenName": "MainScreen",
@@ -131,8 +131,8 @@
     ],
     "AvailableResolutions": [
       {
-        "Width": 1024,
-        "Height": 600
+        "Width": 800,
+        "Height": 480
       }
     ],
     "PhysicalButtons": [],

@@ -8,7 +8,7 @@
 
 screenViewBase::screenViewBase()
 {
-    __background.setPosition(0, 0, 1024, 600);
+    __background.setPosition(0, 0, 800, 480);
     __background.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     add(__background);
 
@@ -16,7 +16,7 @@ screenViewBase::screenViewBase()
     image1.setBitmap(touchgfx::Bitmap(BITMAP_HEPA_3_ID));
     add(image1);
 
-    textArea1.setXY(882, 0);
+    textArea1.setXY(658, 0);
     textArea1.setColor(touchgfx::Color::getColorFromRGB(255, 0, 0));
     textArea1.setLinespacing(0);
     textArea1.setTypedText(touchgfx::TypedText(T___SINGLEUSE_KRNP));
